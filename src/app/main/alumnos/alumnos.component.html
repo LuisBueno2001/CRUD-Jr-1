@@ -1,0 +1,41 @@
+<h1>Registro de Alumnos</h1>
+<div class="container">
+    <div class="mb-3">
+        <label for="formGroupExampleInput" class="form-label">Introduce un Alumno</label>
+        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Name" [(ngModel)]="alumno.nombre">
+      </div>
+    <button style="border-color: black; color: black; background-color: lightblue;" 
+    class="btn btn-sucess" role="button" (click)='create()' *ngIf="!alumno.id else elseBlock"> 
+    Registrar 
+    </button>
+  <ng-template #elseBlock>
+    <button style="border-color: black; color: black; background-color: lightblue;" 
+    class="btn btn-sucess" role="button" (click)='create()' > 
+    Actualizar 
+    </button>
+  </ng-template>
+</div>
+
+<h1>Actualizacion de Alumnos</h1>
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Materia</th>
+            <th scope="col">Editar</th>
+            <th scope="col">Borrar</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let alumno of alumnos">
+            <th scope="row">{{alumno.id}}</th>
+            <td>{{alumno.nombre}}</td>
+
+            <td><button type="button" name="button" class="btn btn-primary" [routerLink]="['/alumno', alumno.id]"> Edit </button></td>
+            <td><button type="button" name="button" class="btn btn-danger" (click)="delete(alumno)" > Delete </button></td>
+          </tr>
+        </tbody>
+      </table>
+</div>

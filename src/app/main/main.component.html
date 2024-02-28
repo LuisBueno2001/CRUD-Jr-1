@@ -1,0 +1,44 @@
+<h1>Tabla de relacion Alumnos-Materias</h1>
+
+<div class="container">
+    <table class="table table-bordered">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col"> Nombre </th>
+                <th scope="col">Materia</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let clasesalumno of clasesalumnos">
+                <th scope="row"> {{clasesalumno.id}}</th>
+                <td>{{clasesalumno.nombreAlumno}}</td>
+                <td>{{clasesalumno.claseAlumno}}</td>
+
+                <td><button type="button" name="button" class="btn btn-primary"
+                        [routerLink]="['/clasesalumno', clasesalumno.id]"> Edit </button></td>
+                <td><button type="button" name="button" class="btn btn-danger" (click)="delete(clasesalumno)"> Delete
+                    </button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div>
+        <button style="background-color: lightgrey; color: black; border-color: black;" class="btn btn-info"
+            type="button" [routerLink]="['/clases']">
+            Agregar Materia
+        </button>
+        <button style="background-color: lightgrey; color: black; border-color: black;" class="btn btn-info"
+            type="button" [routerLink]="['/alumno']">
+            Agregar Alumno
+        </button>
+    </div>
+    <div>
+        <button style="background-color: lightblue; color: black; border-color: black;" class="btn btn-info"
+        type="button" [routerLink]="['/clasesalumno']">
+        Asignar Materia
+    </button>
+    </div>
+
+</div>
