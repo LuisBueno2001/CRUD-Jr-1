@@ -10,55 +10,57 @@ import { Clases } from '../../services/clases/clases';
   templateUrl: './alumnos.component.html',
   styleUrl: './alumnos.component.css'
 })
-export class AlumnosComponent implements OnInit{
-  titulo:string="Registro de Materias"
-  alumno:Alumnos=new Alumnos();
+export class AlumnosComponent implements OnInit {
+  titulo: string = "Registro de Materias"
+  alumno: Alumnos = new Alumnos();
   alumnos: Alumnos[] = [];
 
-  constructor(private alumnosservice:AlumnosService, private router:Router, private activatedRoute:ActivatedRoute ) { }
-  
+  constructor(private alumnosservice: AlumnosService, private router: Router, private activatedRoute: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.alumnosservice.getAll().subscribe(
       e => this.alumnos = e
     );
-      this.cargar();
+    this.cargar();
   }
 
-  cargar():void{
+  cargar(): void {
     this.activatedRoute.params.subscribe(
-      e=>{
-        let id:number=e['id'];
-        if(id){
+      e => {
+        let id: number = e['id'];
+        if (id) {
           this.alumnosservice.get(id).subscribe(
-            es=>this.alumno=es
+            es => this.alumno = es
           );
         }
       }
     );
   }
 
-  create():void{
-    if(typeof(this.alumno.nombre)==="string"){
-      if(this.alumno.nombre){
-    this.alumnosservice.create(this.alumno).subscribe(
-      res=>this.router.navigate(['/main'])
-    )}else{
-      alert("Porfavor introduce un alumno")}
-    }else{
-    alert("El alumno no puede ser un numero")
+  create(): void {
+    if (typeof (this.alumno.nombre) === "string") {
+      if (this.alumno.nombre) {
+        this.alumnosservice.create(this.alumno).subscribe(
+          res => window.location.reload()
+        )
+      } else {
+        alert("Porfavor introduce un alumno")
+      }
+    } else {
+      alert("El alumno no puede ser un numero")
     }
   }
 
-  update():void{
+  update(): void {
     this.alumnosservice.update(this.alumno).subscribe(
-      e=>this.router.navigate(['/main'])
-    )
+      e => window.location.reload()
+      )
   }
 
-  delete(Alumno:Alumnos):void{
-    this.alumnosservice.delete(Alumno.id).subscribe(
-      res=>this.alumnosservice.getAll().subscribe(
-        Response=>this.alumnos=Response
+  delete(Alumno: Alumnos): void {
+    this.alumnosservice.delete(Alumno.alumno_id).subscribe(
+      res => this.alumnosservice.getAll().subscribe(
+        Response => this.alumnos = Response
       )
     );
   }

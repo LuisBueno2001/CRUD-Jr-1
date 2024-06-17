@@ -1,26 +1,26 @@
 <h1>Tabla de relacion Alumnos-Materias</h1>
 
 <div class="container">
-    <table class="table table-bordered">
+    <table class="table table-bordered ">
         <thead class="table-dark">
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col"> Nombre </th>
                 <th scope="col">Materia</th>
-                <th scope="col">Editar</th>
-                <th scope="col">Eliminar</th>
+                <th colspan="2" scope="col">Acciones</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let clasesalumno of clasesalumnos">
-                <th scope="row"> {{clasesalumno.id}}</th>
-                <td>{{clasesalumno.nombreAlumno}}</td>
-                <td>{{clasesalumno.claseAlumno}}</td>
+            <tr *ngFor="let clasealumno of Datos">
+                <th scope="row"> {{clasealumno.id}}</th>
+                <td>{{clasealumno.alumno_id.nombre}}</td>
+                <td>{{clasealumno.clases_id.materia}}</td>
 
-                <td><button type="button" name="button" class="btn btn-primary"
-                        [routerLink]="['/clasesalumno', clasesalumno.id]"> Edit </button></td>
-                <td><button type="button" name="button" class="btn btn-danger" (click)="delete(clasesalumno)"> Delete
-                    </button></td>
+                <td style="box-sizing: content-box;  box-sizing:var(btn-danger);">
+                    <button type="button" name="button" class="btn btn-danger" (click)="delete(clasealumno)">
+                        Delete
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
@@ -35,10 +35,10 @@
         </button>
     </div>
     <div>
-        <button style="background-color: lightblue; color: black; border-color: black;" class="btn btn-info"
-        type="button" [routerLink]="['/clasesalumno']">
-        Asignar Materia
-    </button>
+        <button style="background-color: lightsteelblue; color: black; border-color: black;" class="btn btn-info"
+            type="button" [routerLink]="['/clasesalumno']">
+            Asignar Materia
+        </button>
     </div>
 
 </div>

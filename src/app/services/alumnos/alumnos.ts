@@ -1,4 +1,4 @@
 export class Alumnos {
-    id: number | any;
+    alumno_id: number | any;
     nombre: string | undefined;
 }

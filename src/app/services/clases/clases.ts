@@ -1,4 +1,4 @@
 export class Clases {
-    id: number | any;
+    clases_id: number | any;
     materia: string | undefined;
 }

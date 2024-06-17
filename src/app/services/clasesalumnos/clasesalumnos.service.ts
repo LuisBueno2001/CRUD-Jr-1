@@ -7,17 +7,24 @@ import { Clasesalumnos } from './clasesalumnos';
   providedIn: 'root'
 })
 export class ClasesalumnosService {
+  private clasealumnos: Clasesalumnos[] = [];
 
   private url: string = "http://localhost:8080/api/v2/clasesalumno"
 
   constructor(private http: HttpClient) { }
+
+  getDatos(){
+    return this.http.get(this.url)
+  }
+
   //Obtener estudiantes
   getAll(): Observable<Clasesalumnos[]> {
     return this.http.get<Clasesalumnos[]>(this.url);
   }
 
   //Crear estudiantes
-  create(clasesalumno: Clasesalumnos): Observable<Clasesalumnos> {
+  create(clasesalumno: Clasesalumnos):Observable<Clasesalumnos> {
+    //this.clasealumnos.push(clasesalumno);
     return this.http.post<Clasesalumnos>(this.url, clasesalumno);
   }
 

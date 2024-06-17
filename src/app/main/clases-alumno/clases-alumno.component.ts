@@ -20,12 +20,14 @@ export class ClasesAlumnoComponent implements OnInit {
   alumnos: Alumnos[] = [];
   clase: Clases = new Clases();
   clases: Clases[] = [];
+  datos: Clasesalumnos | any;
+  dato: Clasesalumnos[] = [];
 
   print(value_of: string, value: string) {
     console.log(`Value of ${value_of} is ${value}`);
   }
 
-  constructor(private clasesservice:ClasesService, private alumnosservice:AlumnosService, private clasesalumnosService: ClasesalumnosService, private router: Router, private activatedRoute: ActivatedRoute) { }
+  constructor(private clasesservice: ClasesService, private alumnosservice: AlumnosService, private clasesalumnosService: ClasesalumnosService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.clasesservice.getAll().subscribe(
@@ -41,16 +43,11 @@ export class ClasesAlumnoComponent implements OnInit {
   }
 
   cargar(): void {
-    this.activatedRoute.params.subscribe(
-      e => {
-        let id: number = e['id'];
-        if (id) {
-          this.clasesalumnosService.get(id).subscribe(
-            es => this.clasealumno = es
-          );
-        }
+    this.clasesalumnosService.getDatos().subscribe(
+      data => {
+        this.datos = data;
       }
-    );
+    )
   }
 
   update(): void {
@@ -59,20 +56,20 @@ export class ClasesAlumnoComponent implements OnInit {
     )
   }
 
-  delete(clasesalumnos:Clasesalumnos):void{
+  delete(clasesalumnos: Clasesalumnos): void {
     this.clasesalumnosService.delete(clasesalumnos.id).subscribe(
-      res=>this.clasesalumnosService.getAll().subscribe(
-        Response=>this.clasesalumnos=Response
+      res => this.clasesalumnosService.getAll().subscribe(
+        Response => this.clasesalumnos = Response
       )
     );
   }
 
-  create():void{
-    if((this.clasealumno.claseAlumno)==="Materia" && (this.clasealumno.nombreAlumno)==="Nombre" ){
+  create(clasesalumnos: Clasesalumnos): void {
+    if ((this.clasealumno.alumno_id) && (this.clasealumno.clase_id)) {
+    this.clasesalumnosService.create(this.clasealumno).subscribe(
+      data => this.router.navigate(['/main']))
+    } else {
       alert("Porfavor introduce una materia y/o nombre")
-    }else{
-      this.clasesalumnosService.create(this.clasealumno).subscribe(
-        res=>this.router.navigate(['/main'])
-    )}
     }
+  }
 }
